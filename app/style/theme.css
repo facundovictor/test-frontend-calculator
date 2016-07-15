@@ -1,0 +1,83 @@
+html, body {
+  height: 100vh;
+  width: 100vw;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  display: -ms-flex;
+  display: flex;
+}
+
+/* Help widget ------------------------------------------------------------- */
+
+.help {
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px;
+  position: fixed;
+  right: 20px;
+  text-align: center;
+  top: 20px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  width: 30px;
+}
+
+.help:hover {
+  background-color: #feffb1;
+  text-shadow: 0 0 1px;
+}
+
+/* Calculator -------------------------------------------------------------- */
+
+.calculator {
+  border-radius: 2%;
+  border: 0.1vw solid black;
+  display: -ms-flex;
+  display: flex;
+  flex-direction: column;
+  height: 24vw;
+  margin: auto;
+  width: 20vw;
+}
+
+.calculator > .display {
+  background-color: #feffb1;
+  border: 0.1vw solid #aaa;
+  cursor: text;
+  height: 4vw;
+  margin: 1vw;
+}
+
+.calculator > .panel {
+  align-content: space-between;
+  display: -ms-flex;
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0vw 1vw 1vw 1vw;
+  overflow: hidden;
+}
+
+.calculator > .panel > button {
+  cursor: pointer;
+  font-size: 1vw;
+  height: 2vw;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 4vw;
+}
+
+.calculator > .panel > button#enter {
+  width: 100%;
+}
