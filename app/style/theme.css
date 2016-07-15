@@ -48,7 +48,7 @@ body {
   width: 20vw;
 }
 
-.calculator > .display {
+.calculator > #display {
   background-color: #feffb1;
   border: 0.1vw solid #aaa;
   cursor: text;
