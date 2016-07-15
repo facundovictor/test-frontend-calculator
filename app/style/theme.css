@@ -52,8 +52,13 @@ body {
   background-color: #feffb1;
   border: 0.1vw solid #aaa;
   cursor: text;
+  font-size: 3vw;
   height: 4vw;
+  line-height: 4vw;
   margin: 1vw;
+  padding-right: 0.5vw;
+  text-align: right;
+  overflow: hidden;
 }
 
 .calculator > .panel {
