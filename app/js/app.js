@@ -4,6 +4,8 @@
 
 var display;
 var parser;
+var container;
+var help_button;
 
 function isNumber(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
@@ -315,7 +317,15 @@ function registerCalculatorEvents(){
   document.onkeypress = keyHandler;
 }
 
+function helpHandler () {
+  container.classList.toggle('turned');
+  help_button.classList.toggle('active');
+}
+
 window.onload = function () {
   clearAll();
   registerCalculatorEvents();
+  container = document.getElementById('container');
+  help_button = document.getElementById('help');
+  help_button.onclick = helpHandler;
 };
