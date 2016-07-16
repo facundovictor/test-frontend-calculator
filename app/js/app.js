@@ -200,6 +200,7 @@ var Display = (function() {
 
   Display.prototype.getValue = function () {
     if (!this.isDirty) {
+      this.isDirty = true;
       return this.reference.innerText;
     }
   };
@@ -238,7 +239,6 @@ function operatorHandler (symbol) {
   if (current_value !== null) {
     parser.pushToken(current_value);
     parser.pushToken(symbol);
-    display.markDirty();
   }
 }
 
@@ -248,7 +248,6 @@ function parenthesisHandler (symbol) {
     parser.pushToken(current_value);
   }
   parser.pushToken(symbol);
-  display.markDirty();
 }
 
 function enterHandler () {
