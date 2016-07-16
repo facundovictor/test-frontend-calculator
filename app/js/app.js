@@ -9,7 +9,7 @@ function isNumber(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-Parser = (function() {
+var Parser = (function() {
   function Parser() {
     this.precedence = {
       'e': 4,
@@ -83,9 +83,9 @@ Parser = (function() {
   };
 
   /**
-  * This is the last step of the "Shuting Yard Algorithm". This is separated
+  * This is the last step of the "Shunting Yard Algorithm". This is separated
   * from the previous function, because the it's executed only when all tokens
-  * are inputed.
+  * are inputted.
   **/
   Parser.prototype.finishInfixNotation = function() {
     var popped_op;
@@ -97,6 +97,45 @@ Parser = (function() {
         this.infix_notation.push(popped_op);
       }
     }
+  };
+
+  /**
+  * Returns the proper result execution, applying the operator to the operands.
+  **/
+  Parser.prototype.applyOperation = function (operator, operand_1, operand_2) {
+    switch (operator){
+      case '+': return operand_1 + operand_2;
+      case '-': return operand_1 - operand_2;
+      case '*': return operand_1 * operand_2;
+      case '/': return operand_1 / operand_2;
+      case 'e': return Math.pow(operand_1, operand_2);
+      default:
+        throw new Error('Operator not supported');
+    }
+  };
+
+  /**
+  * Calculates the infix term and returns the result.
+  **/
+  Parser.prototype.getResult = function() {
+    var stack = [], symbol;
+
+    while (this.infix_notation.length > 0) {
+      symbol = this.infix_notation.pop();
+      if (isNumber(symbol)) {
+        stack.push(symbol);
+      } else {
+        if (this.precedence[symbol]) { // Is an operator
+          argument_1 = stack.pop();
+          argument_2 = stack.pop();
+          result = this.applyOperation(symbol, argument_1, argument_2);
+          stack.push(result);
+        } else {
+          throw new Error('Unknown symbol found in infix stack');
+        }
+      }
+    }
+    return stack.pop();
   };
 
   return Parser;
