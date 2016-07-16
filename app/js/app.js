@@ -264,9 +264,28 @@ function expHandler () {
   }
 }
 
+function openParenthesisHandler () {
+  if (!display.isDirty){
+    parser.pushToken(display.getValue());
+  }
+  parser.pushToken('(');
+  display.markDirty();
+}
+
+function closeParenthesisHandler () {
+  if (!display.isDirty){
+    parser.pushToken(display.getValue());
+  }
+  parser.pushToken(')');
+  display.markDirty();
+}
+
 function equalHandler () {
-  parser.pushToken(display.getValue());
+  if (!display.isDirty){
+    parser.pushToken(display.getValue());
+  }
   parser.finishInfixNotation();
+  debugger;
   display.setValue(parser.getResult());
   parser = new Parser();
 }
@@ -287,6 +306,9 @@ function registerCalculatorEvents(){
   document.getElementById('mul').onclick = mulHandler;
   document.getElementById('div').onclick = divHandler;
   document.getElementById('exp').onclick = expHandler;
+
+  document.getElementById('sym_(').onclick = openParenthesisHandler;
+  document.getElementById('sym_)').onclick = closeParenthesisHandler;
 
   document.getElementById('enter').onclick = equalHandler;
 }
