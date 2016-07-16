@@ -29,6 +29,10 @@ Parser = (function() {
     this.operator_stack = [];
   }
 
+  /**
+  * Each token will be added to the data structure following the "Shunting Yard
+  * Algorithm", that will left the required calculation in an infix notation.
+  **/
   Parser.prototype.pushToken = function(token) {
     var operator_on_top, operator_amount, popped_op;
 
@@ -78,6 +82,11 @@ Parser = (function() {
     throw new Error("Token not recognized: "+token);
   };
 
+  /**
+  * This is the last step of the "Shuting Yard Algorithm". This is separated
+  * from the previous function, because the it's executed only when all tokens
+  * are inputed.
+  **/
   Parser.prototype.finishInfixNotation = function() {
     var popped_op;
     while (this.operator_stack.length > 0){
