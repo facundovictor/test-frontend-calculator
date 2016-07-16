@@ -225,13 +225,14 @@ function pointHandler () {
 }
 
 function addHandler () {
-  parser.pushToken(display.getValue());
-  parser.pushToken('+');
-  display.markDirty();
+  if (!display.isDirty){
+    parser.pushToken(display.getValue());
+    parser.pushToken('+');
+    display.markDirty();
+  }
 }
 
 function subHandler () {
-  // As Galculator, for simplicity, let's ignore the unnary
   if (!display.isDirty){
     parser.pushToken(display.getValue());
     parser.pushToken('-');
@@ -240,9 +241,19 @@ function subHandler () {
 }
 
 function mulHandler () {
-  parser.pushToken(display.getValue());
-  parser.pushToken('*');
-  display.markDirty();
+  if (!display.isDirty){
+    parser.pushToken(display.getValue());
+    parser.pushToken('*');
+    display.markDirty();
+  }
+}
+
+function divHandler () {
+  if (!display.isDirty){
+    parser.pushToken(display.getValue());
+    parser.pushToken('/');
+    display.markDirty();
+  }
 }
 
 function equalHandler () {
@@ -266,6 +277,7 @@ function registerCalculatorEvents(){
   document.getElementById('add').onclick = addHandler;
   document.getElementById('sub').onclick = subHandler;
   document.getElementById('mul').onclick = mulHandler;
+  document.getElementById('div').onclick = divHandler;
 
   document.getElementById('enter').onclick = equalHandler;
 }
