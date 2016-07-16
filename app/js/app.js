@@ -126,8 +126,8 @@ var Parser = (function() {
         stack.push(symbol);
       } else {
         if (this.precedence[symbol]) { // Is an operator
-          argument_1 = stack.pop();
           argument_2 = stack.pop();
+          argument_1 = stack.pop();
           result = this.applyOperation(symbol, argument_1, argument_2);
           stack.push(result);
         } else {
@@ -230,6 +230,12 @@ function addHandler () {
   display.markDirty();
 }
 
+function subHandler () {
+  parser.pushToken(display.getValue());
+  parser.pushToken('-');
+  display.markDirty();
+}
+
 function equalHandler () {
   parser.pushToken(display.getValue());
   parser.finishInfixNotation();
@@ -249,6 +255,7 @@ function registerCalculatorEvents(){
   document.getElementById('CE').onclick = clearCurrentValue;
 
   document.getElementById('add').onclick = addHandler;
+  document.getElementById('sub').onclick = subHandler;
 
   document.getElementById('enter').onclick = equalHandler;
 }
