@@ -256,6 +256,14 @@ function divHandler () {
   }
 }
 
+function expHandler () {
+  if (!display.isDirty){
+    parser.pushToken(display.getValue());
+    parser.pushToken('e');
+    display.markDirty();
+  }
+}
+
 function equalHandler () {
   parser.pushToken(display.getValue());
   parser.finishInfixNotation();
@@ -278,6 +286,7 @@ function registerCalculatorEvents(){
   document.getElementById('sub').onclick = subHandler;
   document.getElementById('mul').onclick = mulHandler;
   document.getElementById('div').onclick = divHandler;
+  document.getElementById('exp').onclick = expHandler;
 
   document.getElementById('enter').onclick = equalHandler;
 }
