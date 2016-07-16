@@ -231,8 +231,17 @@ function addHandler () {
 }
 
 function subHandler () {
+  // As Galculator, for simplicity, let's ignore the unnary
+  if (!display.isDirty){
+    parser.pushToken(display.getValue());
+    parser.pushToken('-');
+    display.markDirty();
+  }
+}
+
+function mulHandler () {
   parser.pushToken(display.getValue());
-  parser.pushToken('-');
+  parser.pushToken('*');
   display.markDirty();
 }
 
@@ -256,6 +265,7 @@ function registerCalculatorEvents(){
 
   document.getElementById('add').onclick = addHandler;
   document.getElementById('sub').onclick = subHandler;
+  document.getElementById('mul').onclick = mulHandler;
 
   document.getElementById('enter').onclick = equalHandler;
 }
