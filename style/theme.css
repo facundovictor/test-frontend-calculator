@@ -1,0 +1,143 @@
+html, body {
+  height: 100vh;
+  width: 100vw;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  display: -ms-flex;
+  display: flex;
+}
+
+/* Help button ------------------------------------------------------------- */
+
+#help {
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px;
+  position: fixed;
+  right: 20px;
+  text-align: center;
+  top: 20px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  transition: all 0.1s;
+  width: 30px;
+}
+
+#help:hover {
+  background-color: #feffb1;
+  text-shadow: 0 0 1px;
+  transition: all 0.1s;
+}
+
+#help.active {
+  border: 0;
+  border-bottom: 15px solid transparent;
+  border-right: 30px solid #555;
+  border-top: 15px solid transparent;
+  font-size: 0;
+  height: 0;
+  right: 22px;
+  width: 0;
+}
+
+#help.active:hover {
+  background-color: transparent;
+  border-right-color: #ccc;
+}
+
+/* Container --------------------------------------------------------------- */
+
+#container {
+  margin: auto;
+}
+
+.text {
+  border-radius: 2%;
+  border: 0.1vw solid black;
+  display: -ms-flex;
+  display: flex;
+  font-size: 2vw;
+  flex-direction: column;
+  height: 34vw;
+  margin: auto;
+  opacity: 0;
+  padding: 10px;
+  position: absolute;
+  transform: rotateY(-90deg);
+  transition: transform 0.5s, opacity 0.5s;
+  width: 26vw;
+}
+
+#container.turned > .text {
+  opacity: 1;
+  transform: rotateY(0deg);
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+#container.turned > .calculator {
+  opacity: 0;
+  transform: rotateY(90deg);
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+/* Calculator -------------------------------------------------------------- */
+
+.calculator {
+  border-radius: 2%;
+  border: 0.1vw solid black;
+  display: -ms-flex;
+  display: flex;
+  flex-direction: column;
+  height: 36vw;
+  margin: auto;
+  opacity: 1;
+  transition: transform 0.5s, opacity 0.5s;
+  width: 28vw;
+}
+
+.calculator > #display {
+  background-color: #feffb1;
+  border: 0.1vw solid #aaa;
+  cursor: text;
+  font-size: 4vw;
+  height: 5vw;
+  line-height: 5vw;
+  margin: 1vw;
+  padding-right: 0.7vw;
+  text-align: right;
+  overflow: hidden;
+}
+
+.calculator > .panel {
+  align-content: space-between;
+  display: -ms-flex;
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0vw 1vw 1vw 1vw;
+  overflow: hidden;
+}
+
+.calculator > .panel > button {
+  cursor: pointer;
+  font-size: 2vw;
+  height: 4vw;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 6vw;
+}
+
+.calculator > .panel > button#enter {
+  width: 100%;
+}
