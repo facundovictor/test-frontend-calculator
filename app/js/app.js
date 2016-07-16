@@ -267,7 +267,7 @@ function keyHandler (evt) {
     case '.': pointHandler(); break;
     case 'c':
     case 'C':
-      if (evt.ctrlKey){
+      if (evt.shiftKey){
         clearCurrentValue();
       } else {
         clearAll();
