@@ -251,8 +251,12 @@ function enterHandler () {
   if (current_value !== null) {
     parser.pushToken(current_value);
   }
-  parser.finishInfixNotation();
-  display.setValue(parser.getResult());
+  try {
+    parser.finishInfixNotation();
+    display.setValue(parser.getResult());
+  } catch (error) {
+    display.setValue(); // Show error message
+  }
   display.markResult();
   parser = new Parser();
 }
