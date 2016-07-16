@@ -147,6 +147,7 @@ var Display = (function() {
     this.reference = document.getElementById('display');
     this.isFloat = false;
     this.isDirty = false;
+    this.isResult = false;
     this.reference.innerText = 0;
   }
 
@@ -160,6 +161,7 @@ var Display = (function() {
     } else {
       this.reference.innerText = new_value;
       this.isDirty = false;
+      this.isResult = false;
     }
   };
 
@@ -185,10 +187,11 @@ var Display = (function() {
   Display.prototype.reset = function () {
     this.reference.innerText = 0;
     this.isFloat = false;
+    this.isResult = false;
   };
 
   Display.prototype.addValue = function (value){
-    if (this.reference.innerText == '0' || this.isDirty){
+    if (this.reference.innerText == '0' || this.isDirty || this.isResult){
       this.setValue(value);
     } else {
       this.appendValue(value);
@@ -196,11 +199,17 @@ var Display = (function() {
   };
 
   Display.prototype.getValue = function () {
-    return this.reference.innerText;
+    if (!this.isDirty) {
+      return this.reference.innerText;
+    }
   };
 
   Display.prototype.markDirty = function () {
     this.isDirty = true;
+  };
+
+  Display.prototype.markResult = function () {
+    this.isResult = true;
   };
 
   return Display;
@@ -225,16 +234,18 @@ function pointHandler () {
 }
 
 function operatorHandler (symbol) {
-  if (!display.isDirty){
-    parser.pushToken(display.getValue());
+  var current_value = display.getValue();
+  if (current_value !== null) {
+    parser.pushToken(current_value);
     parser.pushToken(symbol);
     display.markDirty();
   }
 }
 
 function parenthesisHandler (symbol) {
-  if (!display.isDirty){
-    parser.pushToken(display.getValue());
+  var current_value = display.getValue();
+  if (current_value !== null) {
+    parser.pushToken(current_value);
   }
   parser.pushToken(symbol);
   display.markDirty();
@@ -246,6 +257,7 @@ function equalHandler () {
   }
   parser.finishInfixNotation();
   display.setValue(parser.getResult());
+  display.markResult();
   parser = new Parser();
 }
 
