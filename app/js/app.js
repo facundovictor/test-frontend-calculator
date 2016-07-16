@@ -159,6 +159,7 @@ var Display = (function() {
       this.reference.innerText = "Error";
     } else {
       this.reference.innerText = new_value;
+      this.isDirty = false;
     }
   };
 
@@ -189,7 +190,6 @@ var Display = (function() {
   Display.prototype.addValue = function (value){
     if (this.reference.innerText == '0' || this.isDirty){
       this.setValue(value);
-      this.isDirty = false;
     } else {
       this.appendValue(value);
     }
@@ -224,59 +224,19 @@ function pointHandler () {
   display.addValue('.');
 }
 
-function addHandler () {
+function operatorHandler (symbol) {
   if (!display.isDirty){
     parser.pushToken(display.getValue());
-    parser.pushToken('+');
+    parser.pushToken(symbol);
     display.markDirty();
   }
 }
 
-function subHandler () {
-  if (!display.isDirty){
-    parser.pushToken(display.getValue());
-    parser.pushToken('-');
-    display.markDirty();
-  }
-}
-
-function mulHandler () {
-  if (!display.isDirty){
-    parser.pushToken(display.getValue());
-    parser.pushToken('*');
-    display.markDirty();
-  }
-}
-
-function divHandler () {
-  if (!display.isDirty){
-    parser.pushToken(display.getValue());
-    parser.pushToken('/');
-    display.markDirty();
-  }
-}
-
-function expHandler () {
-  if (!display.isDirty){
-    parser.pushToken(display.getValue());
-    parser.pushToken('e');
-    display.markDirty();
-  }
-}
-
-function openParenthesisHandler () {
+function parenthesisHandler (symbol) {
   if (!display.isDirty){
     parser.pushToken(display.getValue());
   }
-  parser.pushToken('(');
-  display.markDirty();
-}
-
-function closeParenthesisHandler () {
-  if (!display.isDirty){
-    parser.pushToken(display.getValue());
-  }
-  parser.pushToken(')');
+  parser.pushToken(symbol);
   display.markDirty();
 }
 
@@ -285,7 +245,6 @@ function equalHandler () {
     parser.pushToken(display.getValue());
   }
   parser.finishInfixNotation();
-  debugger;
   display.setValue(parser.getResult());
   parser = new Parser();
 }
@@ -301,14 +260,14 @@ function registerCalculatorEvents(){
   document.getElementById('C').onclick = clearAll;
   document.getElementById('CE').onclick = clearCurrentValue;
 
-  document.getElementById('add').onclick = addHandler;
-  document.getElementById('sub').onclick = subHandler;
-  document.getElementById('mul').onclick = mulHandler;
-  document.getElementById('div').onclick = divHandler;
-  document.getElementById('exp').onclick = expHandler;
+  document.getElementById('add').onclick = function () { operatorHandler('+'); };
+  document.getElementById('sub').onclick = function () { operatorHandler('-'); };
+  document.getElementById('mul').onclick = function () { operatorHandler('*'); };
+  document.getElementById('div').onclick = function () { operatorHandler('/'); };
+  document.getElementById('exp').onclick = function () { operatorHandler('e'); };
 
-  document.getElementById('sym_(').onclick = openParenthesisHandler;
-  document.getElementById('sym_)').onclick = closeParenthesisHandler;
+  document.getElementById('sym_(').onclick = function () { parenthesisHandler('('); };
+  document.getElementById('sym_)').onclick = function () { parenthesisHandler(')'); };
 
   document.getElementById('enter').onclick = equalHandler;
 }
