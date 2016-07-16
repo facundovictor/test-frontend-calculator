@@ -11,9 +11,9 @@ body {
   display: flex;
 }
 
-/* Help widget ------------------------------------------------------------- */
+/* Help button ------------------------------------------------------------- */
 
-.help {
+#help {
   border-radius: 50%;
   border: 1px solid #ccc;
   cursor: pointer;
@@ -27,12 +27,65 @@ body {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  transition: all 0.1s;
   width: 30px;
 }
 
-.help:hover {
+#help:hover {
   background-color: #feffb1;
   text-shadow: 0 0 1px;
+  transition: all 0.1s;
+}
+
+#help.active {
+  border: 0;
+  border-bottom: 15px solid transparent;
+  border-right: 30px solid #555;
+  border-top: 15px solid transparent;
+  font-size: 0;
+  height: 0;
+  right: 22px;
+  width: 0;
+}
+
+#help.active:hover {
+  background-color: transparent;
+  border-right-color: #ccc;
+}
+
+/* Container --------------------------------------------------------------- */
+
+#container {
+  margin: auto;
+}
+
+.text {
+  border-radius: 2%;
+  border: 0.1vw solid black;
+  display: -ms-flex;
+  display: flex;
+  font-size: 2vw;
+  flex-direction: column;
+  height: 34vw;
+  margin: auto;
+  opacity: 0;
+  padding: 10px;
+  position: absolute;
+  transform: rotateY(-90deg);
+  transition: transform 0.5s, opacity 0.5s;
+  width: 26vw;
+}
+
+#container.turned > .text {
+  opacity: 1;
+  transform: rotateY(0deg);
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+#container.turned > .calculator {
+  opacity: 0;
+  transform: rotateY(90deg);
+  transition: transform 0.5s, opacity 0.5s;
 }
 
 /* Calculator -------------------------------------------------------------- */
@@ -45,6 +98,8 @@ body {
   flex-direction: column;
   height: 36vw;
   margin: auto;
+  opacity: 1;
+  transition: transform 0.5s, opacity 0.5s;
   width: 28vw;
 }
 
