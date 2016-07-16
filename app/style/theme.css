@@ -43,20 +43,20 @@ body {
   display: -ms-flex;
   display: flex;
   flex-direction: column;
-  height: 24vw;
+  height: 36vw;
   margin: auto;
-  width: 20vw;
+  width: 28vw;
 }
 
 .calculator > #display {
   background-color: #feffb1;
   border: 0.1vw solid #aaa;
   cursor: text;
-  font-size: 3vw;
-  height: 4vw;
-  line-height: 4vw;
+  font-size: 4vw;
+  height: 5vw;
+  line-height: 5vw;
   margin: 1vw;
-  padding-right: 0.5vw;
+  padding-right: 0.7vw;
   text-align: right;
   overflow: hidden;
 }
@@ -74,13 +74,13 @@ body {
 
 .calculator > .panel > button {
   cursor: pointer;
-  font-size: 1vw;
-  height: 2vw;
+  font-size: 2vw;
+  height: 4vw;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  width: 4vw;
+  width: 6vw;
 }
 
 .calculator > .panel > button#enter {
