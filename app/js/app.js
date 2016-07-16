@@ -145,10 +145,15 @@ var Parser = (function() {
 var Display = (function() {
   function Display() {
     this.reference = document.getElementById('display');
+    this.isFloat = false;
     this.reference.innerText = 0;
   }
 
   Display.prototype.setValue = function (new_value) {
+    if (new_value == '.'){
+      this.appendValue('.');
+      return;
+    }
     if (isNaN(new_value)){
       this.reference.innerText = "Error";
     } else {
@@ -157,15 +162,27 @@ var Display = (function() {
   };
 
   Display.prototype.appendValue = function (value) {
-    if (!isNaN(value) || value == '.' || value == '-'){
+    if (!isNaN(value)){
       this.reference.innerText += value;
-    } else {
-      throw new Error('Value not supported');
+      return;
     }
+    if (value == '.'){
+      if (!this.isFloat) { 
+        this.isFloat = true;
+        this.reference.innerText += value;
+      }
+      return;
+    }
+    if (value == '-') {
+      this.reference.innerText += value;
+      return;
+    }
+    throw new Error('Value not supported');
   };
 
   Display.prototype.reset = function () {
     this.reference.innerText = 0;
+    this.isFloat = false;
   };
 
   Display.prototype.addValue = function (value){
@@ -189,16 +206,22 @@ function clearCurrentValue () {
 }
 
 /* Button events ----------------------------------------------------------- */
-function clickNum (num) {
+function numHandler (num) {
   display.addValue(num);
+}
+
+function pointHandler () {
+  display.addValue('.');
 }
 
 function registerCalculatorEvents(){
   for (var i=0; i<=9; i++) {
     (function(i){
-      document.getElementById('num_'+i).onclick = function () { clickNum(i); };
+      document.getElementById('num_'+i).onclick = function () { numHandler(i); };
     })(i);
   }
+  
+  document.getElementById('point').onclick = pointHandler;
 
   document.getElementById('C').onclick = clearAll;
   document.getElementById('CE').onclick = clearCurrentValue;
