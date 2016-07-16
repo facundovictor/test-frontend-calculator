@@ -7,10 +7,16 @@ var parser;
 var container;
 var help_button;
 
+/* Util functions ---------------------------------------------------------- */
 function isNumber(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
+function setClickHandler (id, fn) {
+  document.getElementById(id).onclick = fn;
+}
+
+/* Button handlers --------------------------------------------------------- */
 function clearAll () {
   display = new Display();
   parser = new Parser();
@@ -20,7 +26,6 @@ function clearCurrentValue () {
   display.reset();
 }
 
-/* Button events ----------------------------------------------------------- */
 function numHandler (num) {
   display.addValue(num);
 }
@@ -60,6 +65,11 @@ function enterHandler () {
   parser = new Parser();
 }
 
+function helpHandler () {
+  container.classList.toggle('turned');
+  help_button.classList.toggle('active');
+}
+
 function keyHandler (evt) {
   var key = evt.key;
   switch (key){
@@ -89,10 +99,6 @@ function keyHandler (evt) {
   }
 }
 
-function setClickHandler (id, fn) {
-  document.getElementById(id).onclick = fn;
-}
-
 function registerCalculatorEvents(){
   for (var i=0; i<=9; i++) {
     (function(i){
@@ -116,11 +122,6 @@ function registerCalculatorEvents(){
   setClickHandler('enter', enterHandler);
 
   document.onkeypress = keyHandler;
-}
-
-function helpHandler () {
-  container.classList.toggle('turned');
-  help_button.classList.toggle('active');
 }
 
 window.onload = function () {
