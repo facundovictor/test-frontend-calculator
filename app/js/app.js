@@ -142,16 +142,45 @@ var Parser = (function() {
 })();
 
 
-function refreshDisplay (new_value) {
-  if (isNaN(new_value)){
-    display.innerText = "Error";
-  } else {
-    display.innerText = new_value;
+var Display = (function() {
+  function Display() {
+    this.reference = document.getElementById('display');
+    this.reference.innerText = 0;
   }
-}
+
+  Display.prototype.setValue = function (new_value) {
+    if (isNaN(new_value)){
+      this.reference.innerText = "Error";
+    } else {
+      this.reference.innerText = new_value;
+    }
+  };
+
+  Display.prototype.appendValue = function (value) {
+    if (!isNaN(value) || value == '.' || value == '-'){
+      this.reference.innerText += value;
+    } else {
+      throw new Error('Value not supported');
+    }
+  };
+
+  Display.prototype.reset = function () {
+    this.reference.innerText = 0;
+  };
+
+  Display.prototype.addValue = function (value){
+    if (this.reference.innerText == '0'){
+      this.setValue(value);
+    } else {
+      this.appendValue(value);
+    }
+  };
+
+  return Display;
+})();
 
 function clearAll () {
-  refreshDisplay(0);
+  display = new Display();
   parser = new Parser();
 }
 
