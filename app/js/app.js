@@ -184,7 +184,28 @@ function clearAll () {
   parser = new Parser();
 }
 
+function clearCurrentValue () {
+  display.reset();
+}
+
+/* Button events ----------------------------------------------------------- */
+function clickNum (num) {
+  display.addValue(num);
+}
+
+function registerCalculatorEvents(){
+  for (var i=0; i<=9; i++) {
+    (function(i){
+      document.getElementById('num_'+i).onclick = function () { clickNum(i); };
+    })(i);
+  }
+
+  document.getElementById('C').onclick = clearAll;
+  document.getElementById('CE').onclick = clearCurrentValue;
+
+}
+
 window.onload = function () {
-  display = document.getElementById('display');
   clearAll();
+  registerCalculatorEvents();
 };
