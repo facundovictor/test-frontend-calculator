@@ -261,6 +261,35 @@ function equalHandler () {
   parser = new Parser();
 }
 
+function keyHandler (evt) {
+  var key = evt.key;
+  switch (key){
+    case '.': pointHandler(); break;
+    case 'c':
+    case 'C':
+      if (evt.ctrlKey){
+        clearCurrentValue();
+      } else {
+        clearAll();
+      }
+      break;
+    case '+':
+    case '-':
+    case '*':
+    case '/':
+    case 'e': operatorHandler(key); break;
+    case '^': operatorHandler('e'); break;
+    case '(':
+    case ')': parenthesisHandler(key); break;
+    case 'Enter': equalHandler(); break;
+    default:
+      if (isNumber(key)){
+        numHandler(key);
+      }
+      break;
+  }
+}
+
 function registerCalculatorEvents(){
   for (var i=0; i<=9; i++) {
     (function(i){
@@ -282,6 +311,8 @@ function registerCalculatorEvents(){
   document.getElementById('sym_)').onclick = function () { parenthesisHandler(')'); };
 
   document.getElementById('enter').onclick = equalHandler;
+
+  document.onkeypress = keyHandler;
 }
 
 window.onload = function () {
