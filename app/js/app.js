@@ -104,7 +104,7 @@ var Parser = (function() {
   **/
   Parser.prototype.applyOperation = function (operator, operand_1, operand_2) {
     switch (operator){
-      case '+': return operand_1 + operand_2;
+      case '+': return +operand_1 + +operand_2;
       case '-': return operand_1 - operand_2;
       case '*': return operand_1 * operand_2;
       case '/': return operand_1 / operand_2;
@@ -121,7 +121,7 @@ var Parser = (function() {
     var stack = [], symbol;
 
     while (this.infix_notation.length > 0) {
-      symbol = this.infix_notation.pop();
+      symbol = this.infix_notation.shift();
       if (isNumber(symbol)) {
         stack.push(symbol);
       } else {
