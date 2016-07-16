@@ -146,6 +146,7 @@ var Display = (function() {
   function Display() {
     this.reference = document.getElementById('display');
     this.isFloat = false;
+    this.isDirty = false;
     this.reference.innerText = 0;
   }
 
@@ -186,11 +187,20 @@ var Display = (function() {
   };
 
   Display.prototype.addValue = function (value){
-    if (this.reference.innerText == '0'){
+    if (this.reference.innerText == '0' || this.isDirty){
       this.setValue(value);
+      this.isDirty = false;
     } else {
       this.appendValue(value);
     }
+  };
+
+  Display.prototype.getValue = function () {
+    return this.reference.innerText;
+  };
+
+  Display.prototype.markDirty = function () {
+    this.isDirty = true;
   };
 
   return Display;
@@ -214,18 +224,33 @@ function pointHandler () {
   display.addValue('.');
 }
 
+function addHandler () {
+  parser.pushToken(display.getValue());
+  parser.pushToken('+');
+  display.markDirty();
+}
+
+function equalHandler () {
+  parser.pushToken(display.getValue());
+  parser.finishInfixNotation();
+  display.setValue(parser.getResult());
+  parser = new Parser();
+}
+
 function registerCalculatorEvents(){
   for (var i=0; i<=9; i++) {
     (function(i){
       document.getElementById('num_'+i).onclick = function () { numHandler(i); };
     })(i);
   }
-  
-  document.getElementById('point').onclick = pointHandler;
 
+  document.getElementById('point').onclick = pointHandler;
   document.getElementById('C').onclick = clearAll;
   document.getElementById('CE').onclick = clearCurrentValue;
 
+  document.getElementById('add').onclick = addHandler;
+
+  document.getElementById('enter').onclick = equalHandler;
 }
 
 window.onload = function () {
