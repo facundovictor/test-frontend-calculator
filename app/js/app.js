@@ -251,9 +251,10 @@ function parenthesisHandler (symbol) {
   display.markDirty();
 }
 
-function equalHandler () {
-  if (!display.isDirty){
-    parser.pushToken(display.getValue());
+function enterHandler () {
+  var current_value = display.getValue();
+  if (current_value !== null) {
+    parser.pushToken(current_value);
   }
   parser.finishInfixNotation();
   display.setValue(parser.getResult());
@@ -281,7 +282,7 @@ function keyHandler (evt) {
     case '^': operatorHandler('e'); break;
     case '(':
     case ')': parenthesisHandler(key); break;
-    case 'Enter': equalHandler(); break;
+    case 'Enter': enterHandler(); break;
     default:
       if (isNumber(key)){
         numHandler(key);
@@ -310,7 +311,7 @@ function registerCalculatorEvents(){
   document.getElementById('sym_(').onclick = function () { parenthesisHandler('('); };
   document.getElementById('sym_)').onclick = function () { parenthesisHandler(')'); };
 
-  document.getElementById('enter').onclick = equalHandler;
+  document.getElementById('enter').onclick = enterHandler;
 
   document.onkeypress = keyHandler;
 }
