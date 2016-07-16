@@ -205,10 +205,6 @@ var Display = (function() {
     }
   };
 
-  Display.prototype.markDirty = function () {
-    this.isDirty = true;
-  };
-
   Display.prototype.markResult = function () {
     this.isResult = true;
   };
