@@ -1,3 +1,9 @@
+/**
+* A simple parser for mathematical expresions. This implements the Sunting
+* yard algorithm (https://en.wikipedia.org/wiki/Shunting-yard_algorithm).
+*
+* @author: Facundo Victor <facundovt@gmail.com>
+**/
 
 var Parser = (function() {
   function Parser() {
