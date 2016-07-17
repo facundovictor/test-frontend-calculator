@@ -1,3 +1,8 @@
+/**
+* A simple calculator display interface for managing the output.
+*
+* @author: Facundo Victor <facundovt@gmail.com>
+**/
 
 var Display = (function() {
   function Display() {
