@@ -13,7 +13,9 @@ Create a calculator app without using any third-party libraries. The calculator 
 
 ### Usability:
   - Via mouse :white_check_mark:
-  - Via keyboard: :white_check_mark: (A help button at the top right of the screen, that displays a simple help for non intuitive keyboard shortcuts)
+  - Via keyboard: :white_check_mark:
+  
+Also, I implemented a help button at the top right of the screen, that displays a simple help for non intuitive keyboard shortcuts.
 
 ### Aspects:
   - Style: I decided to maintain a simple style to avoid getting long pure CSS code. And I chosen to center the widget and bind the size to the window width.
